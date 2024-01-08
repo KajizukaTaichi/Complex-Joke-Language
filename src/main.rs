@@ -44,28 +44,28 @@ fn main() {
         match get_file_contents(args[2].to_string()) {
             Ok(code) => {
                 if args[1] == "run" || args[1] == "r" {
-                    title(format!("{}を実行します", args[2]));
+                    title(format!("{}を実行するよ", args[2]));
                     executor.script(&code);
                 } else if args[1] == "debug" || args[1] == "d" {
-                    title(format!("{}をデバッグします", args[2]));
+                    title(format!("{}をデバッグするよ", args[2]));
                     executor.debugger(&code);
                 } else if args[1] == "interactive" || args[1] == "i" {
                     executor.interactive();
                 } else if args[1] == "check" || args[1] == "c" {
-                    title(format!("{}の構文チェックをします", args[2]));
+                    title(format!("{}の構文チェックをするよ", args[2]));
                     executor.check(code.split("\n").map(|x| x.to_string()).collect());
                     println!("完了しました");
                 } else {
-                    println!("エラー! サブコマンドが不正です")
+                    println!("ふえぇ。サブコマンドが不正だよお")
                 }
             }
             Err(e) => {
-                println!("エラー! {}", e);
+                println!("ふえぇ。{}", e);
             }
         }
     } else if args.len() == 2 {
         if args[1] == "interactive" || args[1] == "i" {
-            title(String::from("対話モードを起動します。"));
+            title(String::from("対話モードを起動するよ。"));
             executor.interactive();
         }
         match get_file_contents(args[1].to_string()) {
@@ -73,12 +73,12 @@ fn main() {
                 executor.script(&code);
             }
             Err(e) => {
-                println!("エラー! {}", e);
+                println!("ふえぇ。{}", e);
             }
         }
     } else {
         //ファイルがない場合はインタラクティブで実行する
-        title(String::from("対話モードを起動します。"));
+        title(String::from("対話モードを起動するよ。"));
         executor.interactive();
     }
 }

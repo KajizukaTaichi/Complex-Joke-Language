@@ -7,7 +7,7 @@ impl<'a> Executor<'a> {
     /// 標準出力
     pub fn print(&mut self, arg: String) -> ReturnValue {
         let mut text = String::new();
-        self.log_print(format!("標準出力に表示します"));
+        self.log_print(format!("標準出力に表示するよ"));
 
         let value = match self.compute(arg.trim().to_string()) {
             ReturnValue::Some(i) => i,
@@ -34,8 +34,8 @@ impl<'a> Executor<'a> {
         } {
             Type::String(s) => s,
             _ => {
-                self.log_print("エラー! 入力プロンプトは文字列型です".to_string());
-                return ReturnValue::Error("エラー! 入力プロンプトは文字列型です".to_string());
+                self.log_print("ふえぇ。入力プロンプトは文字列型だよお".to_string());
+                return ReturnValue::Error("ふえぇ。入力プロンプトは文字列型だよお".to_string());
             }
         };
         ReturnValue::Some(if let ExecutionMode::Script = self.execution_mode {
@@ -48,7 +48,7 @@ impl<'a> Executor<'a> {
     }
 
     pub fn time_now(&mut self) -> ReturnValue {
-        self.log_print("今の時刻をUNIXエポックで取得します".to_string());
+        self.log_print("今の時刻をUNIXエポックで取得するよ".to_string());
         let current_time = SystemTime::now();
         match current_time.duration_since(UNIX_EPOCH) {
             Ok(duration) => {
@@ -73,18 +73,18 @@ impl<'a> Executor<'a> {
         } {
             Type::Number(i) => i,
             _ => {
-                self.log_print("エラー! 秒数は数値型です".to_string());
-                return ReturnValue::Error("エラー! 秒数は数値型です".to_string());
+                self.log_print("ふえぇ。秒数は数値型だよお".to_string());
+                return ReturnValue::Error("ふえぇ。秒数は数値型だよお".to_string());
             }
         };
-        self.log_print(format!("{sep}秒間スリープします"));
+        self.log_print(format!("{sep}秒間スリープするよ"));
         thread::sleep(Duration::from_secs(sep as u64)); // 3秒間スリープ
         ReturnValue::None
     }
 
     /// 文字列型に変換
     pub fn string(&mut self, arg: String) -> ReturnValue {
-        self.log_print("文字列型に変換します".to_string());
+        self.log_print("文字列型に変換するよ".to_string());
         return ReturnValue::Some(Type::String(
             match match self.compute(arg) {
                 ReturnValue::Some(i) => i,
@@ -110,7 +110,7 @@ impl<'a> Executor<'a> {
 
     /// 数値型に変換
     pub fn number(&mut self, arg: String) -> ReturnValue {
-        self.log_print("数値型に変換します".to_string());
+        self.log_print("数値型に変換するよ".to_string());
         let value = ReturnValue::Some(Type::Number(
             match match self.compute(arg) {
                 ReturnValue::Some(i) => i,
@@ -126,8 +126,8 @@ impl<'a> Executor<'a> {
                 Type::String(s) => match s.parse() {
                     Ok(i) => i,
                     Err(_) => {
-                        self.log_print("エラー! 変換できませんでした".to_string());
-                        return ReturnValue::Error("エラー! 変換できませんでした".to_string());
+                        self.log_print("ふえぇ。変換できませんでした".to_string());
+                        return ReturnValue::Error("ふえぇ。変換できませんでした".to_string());
                     }
                 },
                 Type::Bool(b) => {
@@ -144,7 +144,7 @@ impl<'a> Executor<'a> {
 
     /// 論理型に変換
     pub fn bool(&mut self, arg: String) -> ReturnValue {
-        self.log_print("論理型に変換します".to_string());
+        self.log_print("論理型に変換するよ".to_string());
         ReturnValue::Some(Type::Bool(
             match match self.compute(
                 arg[..arg.len() - 1].split("(").collect::<Vec<&str>>()[1..]
@@ -181,20 +181,20 @@ impl<'a> Executor<'a> {
 
     /// 変数を参照
     pub fn refer(&mut self, args: String) -> ReturnValue {
-        self.log_print("変数の参照を取得します".to_string());
+        self.log_print("変数の参照を取得するよ".to_string());
 
         let address = self.reference_variable(args.clone());
         if let Some(i) = address {
             self.log_print(format!("変数{}のアドレスは{}です", args, i));
             return ReturnValue::Some(Type::Number(i as f64));
         } else {
-            return ReturnValue::Error("エラー! 変数が見つかりませんでした".to_string());
+            return ReturnValue::Error("ふえぇ。変数が見つかりませんでした".to_string());
         }
     }
 
     /// データ型を返す
     pub fn types(&mut self, args: String) -> ReturnValue {
-        self.log_print(format!("データ型を判定します"));
+        self.log_print(format!("データ型を判定するよ"));
         ReturnValue::Some(Type::String(
             match match self.compute(args) {
                 ReturnValue::Some(i) => i,
@@ -218,14 +218,14 @@ impl<'a> Executor<'a> {
         } {
             Type::Number(n) => n,
             _ => {
-                self.log_print("エラー! メモリアドレスは数値型です".to_string());
-                return ReturnValue::Error("エラー! メモリアドレスは数値型です".to_string());
+                self.log_print("ふえぇ。メモリアドレスは数値型だよお".to_string());
+                return ReturnValue::Error("ふえぇ。メモリアドレスは数値型だよお".to_string());
             }
         };
-        self.log_print(format!("メモリアドレス{address}の指す値を求めます"));
+        self.log_print(format!("メモリアドレス{address}の指す値を求めるよ"));
         if address.round() as usize + 1 > self.memory.len() {
-            self.log_print("エラー! アドレスが有効範囲外です".to_string());
-            return ReturnValue::Error("エラー! アドレスが有効範囲外です".to_string());
+            self.log_print("ふえぇ。アドレスが有効範囲外だよお".to_string());
+            return ReturnValue::Error("ふえぇ。アドレスが有効範囲外だよお".to_string());
         } else {
             ReturnValue::Some(self.memory[address.round() as usize].value.clone())
         }

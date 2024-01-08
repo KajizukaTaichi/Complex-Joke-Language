@@ -195,18 +195,18 @@ impl<'a> Executor<'a> {
                         // 変数の定義
                         let new_code = code.replacen("var", "", 1);
                         if !&new_code.contains("=") {
-                            println!("エラー! 変数名と式の間にイコールをいれてください");
+                            println!("ふえぇ。変数名と式の間にイコールをいれてください");
                         }
                     } else if code.contains("func") {
                         //　関数の定義
                         if !code.contains("(") || !code.contains(")") {
-                            println!("エラー! 関数にはカッコをつけてください");
+                            println!("ふえぇ。関数にはカッコをつけてください");
                         }
                         self.control_mode = ControlMode::Function;
                     } else if code.contains("call") {
                         // 関数呼び出し
                         if !code.contains("(") || !code.contains(")") {
-                            println!("エラー! 関数にはカッコをつけてください");
+                            println!("ふえぇ。関数にはカッコをつけてください");
                         }
                     } else if code.contains("for") {
                         self.control_mode = ControlMode::For;
@@ -216,7 +216,7 @@ impl<'a> Executor<'a> {
                         let module = match get_file_contents(code) {
                             Ok(code) => code,
                             Err(e) => {
-                                println!("エラー! {e}");
+                                println!("ふえぇ。{e}");
                                 "".to_string()
                             }
                         };
@@ -229,7 +229,7 @@ impl<'a> Executor<'a> {
                     } else {
                         if let ExecutionMode::Script = self.execution_mode {
                         } else {
-                            println!("エラー! コマンドが不正です: {}", code);
+                            println!("ふえぇ。コマンドが不正だよお: {}", code);
                         }
                     }
                 }
@@ -237,19 +237,19 @@ impl<'a> Executor<'a> {
         }
         match self.control_mode {
             ControlMode::Function => {
-                println!("エラー! 関数の終わりが見つかりません");
+                println!("ふえぇ。関数の終わりが見つかりません");
             }
             ControlMode::If | ControlMode::Else => {
-                println!("エラー! if文の終わりが見つかりません");
+                println!("ふえぇ。if文の終わりが見つかりません");
             }
             ControlMode::Try | ControlMode::Catch => {
-                println!("エラー! try文の終わりが見つかりません");
+                println!("ふえぇ。try文の終わりが見つかりません");
             }
             ControlMode::For => {
-                println!("エラー! for文の終わりが見つかりません");
+                println!("ふえぇ。for文の終わりが見つかりません");
             }
             ControlMode::While => {
-                println!("エラー! while文の終わりが見つかりません");
+                println!("ふえぇ。while文の終わりが見つかりません");
             }
             ControlMode::Normal => {}
         };

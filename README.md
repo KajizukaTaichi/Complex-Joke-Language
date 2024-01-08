@@ -25,9 +25,9 @@ Complex-Joke-Language（CJL）は、コンピュータの難しさを理解す�
 
 1. CJL インタプリタをダウンロードする。
 2. `.cjl` ファイルに CJL コードを書きます。
-3. ターミナルで `cjl-interpreter your_file.cjl` を実行します。
+3. ターミナルで `cjl-interpreter your_file.cjl` を実行するよ。
 4. 驚きの連続をお楽しみください！
 
 #### 🎉 貢献者
 
-CJL の開発に貢献してくれた素晴らしい人々に感謝します。
+CJL の開発に貢献してくれた素晴らしい人々に感謝するよ。
